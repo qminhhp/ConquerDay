@@ -46,11 +46,16 @@ export default async function Dashboard() {
       const tags =
         taskTags
           ?.filter((tt) => tt.task_id === task.id)
-          .map((tt) => ({
-            id: tt.tags.id,
-            name: tt.tags.name,
-            color: tt.tags.color,
-          }))
+          .map((tt) => {
+            if (tt.tags) {
+              return {
+                id: tt.tags.id,
+                name: tt.tags.name,
+                color: tt.tags.color,
+              };
+            }
+            return null;
+          })
           .filter(Boolean) || [];
 
       return {
